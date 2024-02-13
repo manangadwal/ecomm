@@ -1,0 +1,108 @@
+import '../controller/blog_grid_view_controller.dart';
+import '../models/fashion1_item_model.dart';
+import '../models/post_item_model.dart';
+import 'fashion1_item_widget.dart';
+import 'package:bhawana_s_collection/core/app_export.dart';
+import 'package:flutter/material.dart';
+
+// ignore: must_be_immutable
+class PostItemWidget extends StatelessWidget {
+  PostItemWidget(
+    this.postItemModelObj, {
+    Key? key,
+  }) : super(
+          key: key,
+        );
+
+  PostItemModel postItemModelObj;
+
+  var controller = Get.find<BlogGridViewController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          height: 200.v,
+          width: 343.h,
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Obx(
+                () => CustomImageView(
+                  imagePath: postItemModelObj.image!.value,
+                  height: 200.v,
+                  width: 343.h,
+                  alignment: Alignment.center,
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CustomImageView(
+                      imagePath: ImageConstant.imgBookmark,
+                      height: 18.adaptSize,
+                      width: 18.adaptSize,
+                      alignment: Alignment.centerRight,
+                      margin: EdgeInsets.only(right: 8.h),
+                    ),
+                    SizedBox(height: 84.v),
+                    Container(
+                      width: 343.h,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 14.h,
+                        vertical: 11.v,
+                      ),
+                      decoration: AppDecoration.gradientGrayToGray,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 23.v),
+                          Container(
+                            width: 291.h,
+                            margin: EdgeInsets.only(right: 24.h),
+                            child: Obx(
+                              () => Text(
+                                postItemModelObj.styleGuide!.value,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: CustomTextStyles.bodyMediumGray500114
+                                    .copyWith(
+                                  height: 1.43,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 7.v),
+        // Obx(
+        //   () => Wrap(
+        //     runSpacing: 10.v,
+        //     spacing: 10.h,
+        //     children: List<Widget>.generate(
+        //       controller.postItemModelObj.value.fashion1ItemList.value.length,
+        //       (index) {
+        //         Fashion1ItemModel model = controller
+        //             .postItemModelObj.value.fashion1ItemList.value[index];
+
+        //         return Fashion1ItemWidget(
+        //           model,
+        //         );
+        //       },
+        //     ),
+        //   ),
+        // ),
+      ],
+    );
+  }
+}

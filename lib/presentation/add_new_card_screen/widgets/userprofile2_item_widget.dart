@@ -1,0 +1,55 @@
+import '../controller/add_new_card_controller.dart';
+import '../models/userprofile2_item_model.dart';
+import '../models/userprofile3_item_model.dart';
+import '../widgets/userprofile3_item_widget.dart';
+import 'package:bhawana_s_collection/core/app_export.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
+
+// ignore: must_be_immutable
+class Userprofile2ItemWidget extends StatelessWidget {
+  Userprofile2ItemWidget(
+    this.userprofile2ItemModelObj, {
+    Key? key,
+  }) : super(
+          key: key,
+        );
+
+  Userprofile2ItemModel userprofile2ItemModelObj;
+
+  var controller = Get.find<AddNewCardController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Obx(
+        () => CarouselSlider.builder(
+          options: CarouselOptions(
+            height: 190.v,
+            initialPage: 0,
+            autoPlay: true,
+            viewportFraction: 1.0,
+            enableInfiniteScroll: false,
+            scrollDirection: Axis.horizontal,
+            onPageChanged: (
+              index,
+              reason,
+            ) {
+              controller.sliderIndex.value = index;
+            },
+          ),
+          itemCount:
+              userprofile2ItemModelObj.userprofile3ItemList!.value.length,
+          itemBuilder: (context, index, realIndex) {
+            Userprofile3ItemModel model =
+                userprofile2ItemModelObj.userprofile3ItemList!.value[index];
+            return Userprofile3ItemWidget(
+              model,
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
